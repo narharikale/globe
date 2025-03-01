@@ -14,24 +14,33 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model City {
+model Country {
   id        Int      @id @default(autoincrement())
-  city      String
-  country   String
+  name      String   @unique
+  cities    City[]
   clues     Clue[]
   funFacts  FunFact[]
   trivias   Trivia[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
 
-  @@unique([city, country])
+model City {
+  id        Int      @id @default(autoincrement())
+  name      String
+  countryId Int
+  country   Country  @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([name, countryId])
 }
 
 model Clue {
   id        Int      @id @default(autoincrement())
   text      String
-  cityId    Int
-  city      City     @relation(fields: [cityId], references: [id], onDelete: Cascade)
+  countryId Int
+  country   Country  @relation(fields: [countryId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -39,8 +48,8 @@ model Clue {
 model FunFact {
   id        Int      @id @default(autoincrement())
   text      String
-  cityId    Int
-  city      City     @relation(fields: [cityId], references: [id], onDelete: Cascade)
+  countryId Int
+  country   Country  @relation(fields: [countryId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -48,8 +57,35 @@ model FunFact {
 model Trivia {
   id        Int      @id @default(autoincrement())
   text      String
-  cityId    Int
-  city      City     @relation(fields: [cityId], references: [id], onDelete: Cascade)
+  countryId Int
+  country   Country  @relation(fields: [countryId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model User {
+  id            Int           @id @default(autoincrement())
+  username      String?
+  gameHistory   GameHistory[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model GameHistory {
+  id            Int           @id @default(autoincrement())
+  userId        Int
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  correctCount  Int           @default(0)
+  incorrectCount Int          @default(0)
+  completedAt   DateTime      @default(now())
+  countriesPlayed CountryPlayed[]
+}
+
+model CountryPlayed {
+  id            Int           @id @default(autoincrement())
+  gameHistoryId Int
+  gameHistory   GameHistory   @relation(fields: [gameHistoryId], references: [id], onDelete: Cascade)
+  countryId     Int
+  wasCorrect    Boolean
+  createdAt     DateTime      @default(now())
 }

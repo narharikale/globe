@@ -1,10 +1,4 @@
-import { ClueCard } from "@/components/organism/ClueCard";
-import { OptionButton } from "@/components/organism/OptionButton";
-import { ResultCard } from "@/components/organism/ResultCard";
-import { ScoreDisplay } from "@/components/organism/ScoreDisplay";
-import { ShareButton } from "@/components/organism/ShareButton";
-import { motion } from "framer-motion";
-import Image from "next/image";
+
 import ClientWrapper from "@/components/ClientWrapper";
 
 export default function Home() {

@@ -63,7 +63,7 @@ export const ResultCard: React.FC<ResultCardProps> = ({
               <CheckCircle className="w-16 h-16 text-green-500 mb-2" />
             ) : (
               <XCircle className="w-16 h-16 text-red-500 mb-2" />
-            )}
+            )}  
           </motion.div>
           
           <h2 className="text-2xl font-bold mb-1">
@@ -72,7 +72,7 @@ export const ResultCard: React.FC<ResultCardProps> = ({
           <p className="text-gray-600 mb-4">
             {isCorrect 
               ? `You nailed it! ${destination} is the answer.` 
-              : `The correct answer was ${destination}.`}
+              : null}
           </p>
           
           <div className="bg-white rounded-lg p-4 w-full mb-6">
