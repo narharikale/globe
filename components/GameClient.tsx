@@ -21,7 +21,6 @@ const GameClient = () => {
   
   const { 
     currentClue,
-    currentClueId, 
     options, 
     selectedOption, 
     isCorrect, 
@@ -31,10 +30,8 @@ const GameClient = () => {
     factToShow, 
     selectOption, 
     playAgain,
-    loadNewQuestion,
     startGame,
     isGameCompleted,
-    playedCountries,
     correctCountryId,
     resetGame
   } = useGameStore();

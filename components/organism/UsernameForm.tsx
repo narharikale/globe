@@ -3,17 +3,15 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Globe } from 'lucide-react';
-import { Button } from './Button';
-import { Card } from './Card';
 
 interface UsernameFormProps {
   onSubmit: (username: string) => void;
-  isLoading?: boolean;
+  isLoading: boolean;
 }
 
 export const UsernameForm: React.FC<UsernameFormProps> = ({ 
   onSubmit,
-  isLoading = false
+  isLoading
 }) => {
   const [username, setUsername] = useState('');
   const [error, setError] = useState('');

@@ -23,7 +23,7 @@ export const GameCompletion: React.FC<GameCompletionProps> = ({
   
   let message = '';
   if (percentage >= 90) {
-    message = 'Amazing! You\'re a geography expert!';
+    message = 'Amazing! You&apos;re a geography expert!';
   } else if (percentage >= 70) {
     message = 'Great job! You know your geography well!';
   } else if (percentage >= 50) {
@@ -46,8 +46,8 @@ export const GameCompletion: React.FC<GameCompletionProps> = ({
           Game Complete!
         </h2>
         
-        <p className="text-gray-600 mb-6 text-center">
-          Congratulations, {username}! You've completed the game.
+        <p className="text-lg text-gray-600 mb-6">
+          You&apos;ve completed all available questions! Here&apos;s how you did:
         </p>
         
         <div className="bg-indigo-50 p-4 rounded-lg mb-6">
