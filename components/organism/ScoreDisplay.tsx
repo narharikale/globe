@@ -13,8 +13,6 @@ export const ScoreDisplay: React.FC<ScoreDisplayProps> = ({
   incorrect,
   username
 }) => {
-  const total = correct + incorrect;
-  const percentage = total > 0 ? Math.round((correct / total) * 100) : 0;
   
   return (
     <motion.div
@@ -45,11 +43,6 @@ export const ScoreDisplay: React.FC<ScoreDisplayProps> = ({
             <span className="font-medium">{incorrect}</span>
           </div>
           
-          {total > 0 && (
-            <div className="text-sm font-medium">
-              {percentage}% correct
-            </div>
-          )}
         </div>
       </div>
     </motion.div>

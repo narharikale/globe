@@ -9,14 +9,12 @@ import { useWindowSize } from 'react-use';
 interface GameCompletionProps {
   username: string;
   score: GameScore;
-  onPlayAgain: () => void;
   onNewGame: () => void;
 }
 
 export const GameCompletion: React.FC<GameCompletionProps> = ({
   username,
   score,
-  onPlayAgain,
   onNewGame
 }) => {
   const { width, height } = useWindowSize();
@@ -61,12 +59,6 @@ export const GameCompletion: React.FC<GameCompletionProps> = ({
             <span className="font-medium">Incorrect Answers:</span>
             <span className="text-red-600 font-bold">{score.incorrect}</span>
           </div>
-          <div className="flex justify-between">
-            <span className="font-medium">Success Rate:</span>
-            <span className={`font-bold ${percentage >= 70 ? 'text-green-600' : percentage >= 50 ? 'text-yellow-600' : 'text-red-600'}`}>
-              {percentage}%
-            </span>
-          </div>
         </div>
         
         <p className="text-center text-gray-700 font-medium mb-6">
@@ -74,18 +66,12 @@ export const GameCompletion: React.FC<GameCompletionProps> = ({
         </p>
         
         <div className="flex flex-col space-y-3">
-          <button
-            onClick={onPlayAgain}
-            className="w-full py-2 px-4 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-75"
-          >
-            Play Again
-          </button>
           
           <button
             onClick={onNewGame}
             className="w-full py-2 px-4 bg-white text-indigo-600 font-semibold rounded-lg shadow-md border border-indigo-600 hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-75"
           >
-            New Game (Different User)
+            New Game
           </button>
         </div>
       </motion.div>

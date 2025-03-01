@@ -89,6 +89,17 @@ const GameClient = () => {
     resetGame();
   };
 
+  // Handle playing the same question again
+  const handlePlayAgain = () => {
+    // Reset the current question state without loading a new question
+    useGameStore.setState({
+      selectedOption: null,
+      isCorrect: null,
+      showResult: false,
+      factToShow: ''
+    });
+  };
+
   // Loading state
   if (isLoading) {
     return (
@@ -129,8 +140,7 @@ const GameClient = () => {
       <div className="flex justify-center items-center min-h-[500px]">
         <GameCompletion 
           username={localUsername} 
-          score={score} 
-          onPlayAgain={playAgain} 
+          score={score}  
           onNewGame={handleNewGame} 
         />
       </div>
@@ -181,6 +191,7 @@ const GameClient = () => {
           factToShow={factToShow}
           destination={options.find(o => o.id === correctCountryId)?.name || ''}
           onNext={playAgain}
+          onPlayAgain={handlePlayAgain}
         />
       )}
     </>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Share2, X, Copy } from 'lucide-react';
+import { Share2, X, Copy, Twitter, Facebook, MessageCircle, Mail } from 'lucide-react';
 import { Button } from './Button';
 
 interface ShareButtonProps {
@@ -15,8 +15,8 @@ export const ShareButton: React.FC<ShareButtonProps> = ({ username, score }) => 
   const [isOpen, setIsOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   
-  // In a real app, this would be a dynamic URL with the user's ID
-  const shareUrl = `${window.location.origin}?invite=${username}`;
+  // Generate a URL with the user's name and score
+  const shareUrl = `${window.location.origin}?player=${encodeURIComponent(username)}&score=${score.correct}`;
   
   const handleCopy = () => {
     navigator.clipboard.writeText(shareUrl);
@@ -25,26 +25,17 @@ export const ShareButton: React.FC<ShareButtonProps> = ({ username, score }) => 
   };
   
   const handleShare = () => {
-    // Check if Web Share API is available and if we're in a secure context
-    if (navigator.share && window.isSecureContext) {
-      try {
-        navigator.share({
-          title: 'Globetrotter Challenge',
-          text: `I've scored ${score.correct} correct answers in Globetrotter Challenge! Can you beat me?`,
-          url: shareUrl,
-        }).catch(error => {
-          // If share fails (user cancels or other error), fall back to modal
-          console.log('Share failed:', error);
-          setIsOpen(true);
-        });
-      } catch (error) {
-        console.log('Share error:', error);
-        setIsOpen(true);
-      }
-    } else {
-      // If Web Share API is not available, show the modal
-      setIsOpen(true);
-    }
+    // Always open the custom modal
+    setIsOpen(true);
+  };
+
+  const shareMessage = `I've scored ${score.correct} correct answers in Globetrotter Challenge! Can you beat me?`;
+  
+  const socialShareUrls = {
+    twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareMessage)}&url=${encodeURIComponent(shareUrl)}`,
+    facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(shareMessage)}`,
+    whatsapp: `https://wa.me/?text=${encodeURIComponent(`${shareMessage} ${shareUrl}`)}`,
+    email: `mailto:?subject=${encodeURIComponent('Globetrotter Challenge')}&body=${encodeURIComponent(`${shareMessage}\n\n${shareUrl}`)}`
   };
   
   return (
@@ -85,7 +76,10 @@ export const ShareButton: React.FC<ShareButtonProps> = ({ username, score }) => 
               <div className="mb-6">
                 <div className="bg-indigo-50 rounded-lg p-4 mb-4">
                   <p className="text-indigo-800 font-medium">
-                    {username} has scored {score.correct} correct answers! Can you beat that?
+                    You scored {score.correct}!
+                  </p>
+                  <p className="text-indigo-700 mt-2">
+                    Challenge your friends to beat your score!
                   </p>
                 </div>
                 
@@ -107,6 +101,44 @@ export const ShareButton: React.FC<ShareButtonProps> = ({ username, score }) => 
                 {copied && (
                   <p className="text-green-600 text-sm">Link copied to clipboard!</p>
                 )}
+
+                <div className="mt-4">
+                  <p className="text-gray-700 mb-2 font-medium">Share via:</p>
+                  <div className="flex space-x-3">
+                    <a 
+                      href={socialShareUrls.twitter} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="bg-[#1DA1F2] text-white p-2 rounded-full hover:bg-opacity-90"
+                    >
+                      <Twitter className="w-5 h-5" />
+                    </a>
+                    <a 
+                      href={socialShareUrls.facebook} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="bg-[#4267B2] text-white p-2 rounded-full hover:bg-opacity-90"
+                    >
+                      <Facebook className="w-5 h-5" />
+                    </a>
+                    <a 
+                      href={socialShareUrls.whatsapp} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="bg-[#25D366] text-white p-2 rounded-full hover:bg-opacity-90"
+                    >
+                      <MessageCircle className="w-5 h-5" />
+                    </a>
+                    <a 
+                      href={socialShareUrls.email} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="bg-gray-600 text-white p-2 rounded-full hover:bg-opacity-90"
+                    >
+                      <Mail className="w-5 h-5" />
+                    </a>
+                  </div>
+                </div>
               </div>
               
               <div className="flex justify-end">
