@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Globetrotter - Interactive Geography Game
+
+Globetrotter is an interactive geography game that challenges players to identify countries based on clues. Test your geography knowledge, learn interesting facts about destinations around the world, and share your scores with friends!
+
+## Features
+
+- **Interactive Geography Quiz**: Identify countries based on various clues
+- **Score Tracking**: Keep track of your correct and incorrect answers
+- **Shareable Results**: Share your scores on social media with custom links
+- **Dynamic SEO**: Optimized social sharing with dynamic metadata
+- **Responsive Design**: Play on any device with a fully responsive interface
+
+## Technology Stack
+
+### Frontend
+- **Next.js 15**: React framework with App Router for server and client components
+- **TypeScript**: Static type checking for improved code quality and developer experience
+- **TailwindCSS**: Utility-first CSS framework for styling
+- **NextSEO**: Dynamic SEO management for social sharing
+
+### Backend
+- **Prisma ORM**: Type-safe database client for database operations
+- **PostgreSQL**: Relational database for storing game data, countries, clues, and user scores
+- **Next.js API Routes**: Serverless API endpoints for game logic
+
+### Development Tools
+- **ESLint**: Code linting for identifying and fixing code issues
+- **TypeScript**: Static type checking for improved code quality
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+- Node.js 18+ installed
+- PostgreSQL database (local or hosted)
 
+### Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/yourusername/globe.git
+cd globe
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Set up your environment variables:
+Create a `.env` file in the root directory with the following variables:
+```
+DATABASE_URL="postgresql://username:password@localhost:5432/globe"
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Set up the database:
+```bash
+npx prisma migrate dev
+npx prisma db seed
+```
 
-## Learn More
+5. Run the development server:
+```bash
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+6. Open [http://localhost:3000](http://localhost:3000) with your browser to play the game.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## How to Play
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Start the game by entering your username
+2. You'll be presented with a clue about a country
+3. Select the correct country from the options provided
+4. After completing the game, view your score and share it with friends
+5. Challenge your friends to beat your score!
 
-## Deploy on Vercel
+## Database Schema
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The application uses the following main data models:
+- **Country**: Information about countries
+- **City**: Cities associated with countries
+- **Clue**: Hints about countries used in the game
+- **FunFact**: Interesting facts about countries
+- **Trivia**: Additional information about countries
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deployment
+
+The easiest way to deploy your Globe app is to use the [Vercel Platform](https://vercel.com/new) from the creators of Next.js.
+
+For database hosting, consider using:
+
+- [Neon](https://neon.tech/)
+
+## Contributing
+
+
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
